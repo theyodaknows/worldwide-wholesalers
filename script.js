@@ -92,7 +92,11 @@ window.Cart = (function () {
   }
 
   function _save(items) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch (e) {
+      // Storage full or disabled — cart changes won't persist
+    }
   }
 
   function _notify() {
