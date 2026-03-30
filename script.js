@@ -18,6 +18,11 @@ function initCategoryTabs() {
     grids.forEach(grid => {
       grid.hidden = grid.dataset.category !== tab.dataset.category;
     });
+
+    var productRows = document.querySelectorAll('.product-row');
+    productRows.forEach(function (row) {
+      row.hidden = row.dataset.category !== tab.dataset.category;
+    });
   }
 
   tabs.forEach((tab, i) => {
@@ -162,8 +167,50 @@ function initCartBadge() {
   document.addEventListener('cart-updated', update);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initCategoryTabs();
+// =====================
+// PRODUCT ROWS (index.html)
+// =====================
+function initProductRows() {
+  var categories = ['beauty', 'women', 'children'];
+  categories.forEach(function (cat) {
+    var container = document.getElementById('products-' + cat);
+    if (!container) return;
+    var catProducts = PRODUCTS.filter(function (p) { return p.category === cat; });
+    catProducts.forEach(function (product) {
+      var card = document.createElement('a');
+      card.href = 'product.html?id=' + product.id;
+      card.className = 'product-card';
+      var badgeHtml = product.badge
+        ? '<span class="cat-card-badge' + (product.badge === 'Hot' ? ' cat-card-badge--hot' : product.badge === 'Popular' ? ' cat-card-badge--hot' : '') + '">' + product.badge + '</span>'
+        : '';
+      card.innerHTML =
+        '<div class="product-card-img">' +
+          '<img src="' + product.image + '" alt="' + product.name + '" loading="lazy" />' +
+          badgeHtml +
+        '</div>' +
+        '<div class="product-card-info">' +
+          '<span class="product-card-cat">' + product.subcategory + '</span>' +
+          '<h3 class="product-card-name">' + product.name + '</h3>' +
+          '<span class="product-card-price">' + product.price + '</span>' +
+          '<span class="product-card-moq">MOQ: ' + product.moq + ' units</span>' +
+        '</div>';
+      container.appendChild(card);
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
   initMobileNav();
   initCartBadge();
+  if (document.querySelector('.cat-tab')) {
+    initCategoryTabs();
+    initProductRows();
+  }
+  if (document.getElementById('product-detail')) {
+    initProductDetail();
+  }
+  if (document.getElementById('checkout-form')) {
+    initCheckout();
+  }
+  if (typeof initCartSidebar === 'function') initCartSidebar();
 });
