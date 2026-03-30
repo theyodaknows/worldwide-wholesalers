@@ -398,6 +398,9 @@ button:focus-visible {
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
 }
+.cat-grid[hidden] {
+  display: none;
+}
 
 .cat-card {
   position: relative;
