@@ -505,6 +505,28 @@ function initCheckout() {
   });
 }
 
+// =====================
+// LINK COLLECTION CARDS TO PRODUCTS
+// =====================
+function linkCollectionCards() {
+  var cards = Array.from(document.querySelectorAll('.cat-card'));
+  cards.forEach(function (card) {
+    var labelEl = card.querySelector('.cat-card-label');
+    if (!labelEl) return;
+    var labelText = labelEl.textContent.trim();
+    var product = PRODUCTS.find(function (p) { return p.subcategory === labelText; });
+    if (!product) return;
+
+    // Replace div with <a> so the whole card is a link
+    var link = document.createElement('a');
+    link.href = 'product.html?id=' + product.id;
+    link.className = card.className + ' cat-card--linked';
+    link.setAttribute('aria-label', labelText + ' — view product');
+    link.innerHTML = card.innerHTML;
+    card.parentNode.replaceChild(link, card);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   initMobileNav();
   initCartBadge();
@@ -512,6 +534,7 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('.cat-tab')) {
     initCategoryTabs();
     initProductRows();
+    linkCollectionCards();
   }
   if (document.getElementById('product-detail')) {
     initProductDetail();

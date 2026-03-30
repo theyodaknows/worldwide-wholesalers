@@ -432,12 +432,31 @@ button:focus-visible {
   right: 0;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
   padding: 36px 14px 14px;
+  transition: padding-bottom var(--transition);
 }
 
 .cat-card-label {
   font-size: 12px;
   color: #ddd;
   font-weight: 600;
+}
+
+/* Linked collection cards — show "Shop →" on hover */
+a.cat-card--linked {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+a.cat-card--linked .cat-card-label::after {
+  content: ' →';
+  color: var(--green);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+a.cat-card--linked:hover .cat-card-label::after,
+a.cat-card--linked:focus-visible .cat-card-label::after {
+  opacity: 1;
 }
 
 .cat-card-badge {
