@@ -324,6 +324,13 @@ button:focus-visible {
   padding: 80px 64px;
 }
 
+/* Offset scroll anchors by sticky nav height */
+#collections,
+#contact,
+#why-us {
+  scroll-margin-top: 64px;
+}
+
 .section-label {
   font-size: 10px;
   color: var(--green);
