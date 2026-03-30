@@ -267,3 +267,232 @@ button:focus-visible {
   height: 32px;
   background: linear-gradient(to bottom, var(--green), transparent);
 }
+
+/* =====================
+   STATS BAR
+   ===================== */
+.stats {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stats-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 48px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.stat {
+  text-align: center;
+  flex: 1;
+}
+
+.stat-num {
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--green);
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.stat-label {
+  font-size: 10px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-top: 8px;
+}
+
+.stats-divider {
+  width: 1px;
+  height: 48px;
+  background: var(--border-2);
+  flex-shrink: 0;
+}
+
+/* =====================
+   SHARED SECTION STYLES
+   ===================== */
+.section-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 80px 64px;
+}
+
+.section-label {
+  font-size: 10px;
+  color: var(--green);
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.section-sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+
+/* =====================
+   CATEGORY TABS
+   ===================== */
+.cat-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border-2);
+  margin-bottom: 32px;
+}
+
+.cat-tab {
+  padding: 14px 28px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 700;
+  color: var(--text-dim);
+  border-bottom: 3px solid transparent;
+  margin-bottom: -1px;
+  transition: color var(--transition), border-color var(--transition);
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+}
+
+.cat-tab:hover {
+  color: var(--text-muted);
+}
+
+.cat-tab.active,
+.cat-tab[aria-selected="true"] {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
+
+/* =====================
+   PRODUCT GRID + CARDS
+   ===================== */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.cat-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  cursor: default;
+}
+
+.cat-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8);
+  transition: filter var(--transition), transform 0.35s ease;
+}
+
+.cat-card:hover img {
+  filter: brightness(1);
+  transform: scale(1.04);
+}
+
+.cat-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.82));
+  padding: 36px 14px 14px;
+}
+
+.cat-card-label {
+  font-size: 12px;
+  color: #ddd;
+  font-weight: 600;
+}
+
+.cat-card-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: var(--green);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 2px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cat-card-badge--hot {
+  background: #e53e3e;
+}
+
+.cat-card-badge--season {
+  background: #805ad5;
+}
+
+/* =====================
+   WHY CHOOSE US
+   ===================== */
+.why-us {
+  background: var(--bg);
+}
+
+.why-us .section-inner {
+  padding-top: 0;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.why-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--green);
+  border-radius: var(--radius);
+  padding: 32px;
+}
+
+.why-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+}
+
+.why-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.why-text {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.75;
+}

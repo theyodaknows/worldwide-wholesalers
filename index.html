@@ -69,15 +69,245 @@
     </section>
 
     <section class="stats" aria-label="Brand statistics">
-      <!-- Task 4 -->
+      <div class="stats-inner">
+        <div class="stat">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Countries Served</div>
+        </div>
+        <div class="stats-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Product Categories</div>
+        </div>
+        <div class="stats-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <div class="stat-num">1000+</div>
+          <div class="stat-label">Products Available</div>
+        </div>
+        <div class="stats-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <div class="stat-num">B2B</div>
+          <div class="stat-label">Wholesale Only</div>
+        </div>
+      </div>
     </section>
 
     <section class="collections" id="collections" aria-label="Product collections">
-      <!-- Task 5 -->
+      <div class="section-inner">
+        <p class="section-label">Our Collections</p>
+        <h2 class="section-title">Browse by Category</h2>
+        <p class="section-sub">Click any category to explore our full range of products</p>
+
+        <div class="cat-tabs" role="tablist" aria-label="Product categories">
+          <button
+            class="cat-tab active"
+            role="tab"
+            aria-selected="true"
+            aria-controls="grid-beauty"
+            id="tab-beauty"
+            data-category="beauty"
+          >✦ Beauty Products</button>
+          <button
+            class="cat-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="grid-women"
+            id="tab-women"
+            data-category="women"
+          >✦ Women's Clothing</button>
+          <button
+            class="cat-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="grid-children"
+            id="tab-children"
+            data-category="children"
+          >✦ Children's Clothing</button>
+        </div>
+
+        <!-- BEAUTY GRID -->
+        <div
+          class="cat-grid"
+          id="grid-beauty"
+          data-category="beauty"
+          role="tabpanel"
+          aria-labelledby="tab-beauty"
+        >
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80&fit=crop"
+              alt="Lipstick and lip care products flatlay"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Lipstick &amp; Lip Care</span>
+            </div>
+            <span class="cat-card-badge">New</span>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&q=80&fit=crop"
+              alt="Skincare serums and moisturizers"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Skincare &amp; Serums</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80&fit=crop"
+              alt="Makeup and cosmetics collection"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Makeup &amp; Cosmetics</span>
+            </div>
+            <span class="cat-card-badge cat-card-badge--hot">Hot</span>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1604654894610-df63bc536371?w=600&q=80&fit=crop"
+              alt="Nail polish and nail art supplies"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Nail &amp; Nail Art</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WOMEN'S GRID -->
+        <div
+          class="cat-grid"
+          id="grid-women"
+          data-category="women"
+          role="tabpanel"
+          aria-labelledby="tab-women"
+          hidden
+        >
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80&fit=crop"
+              alt="Women's dresses and gowns"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Dresses &amp; Gowns</span>
+            </div>
+            <span class="cat-card-badge">New</span>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?w=600&q=80&fit=crop"
+              alt="Women's tops and blouses"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Tops &amp; Blouses</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80&fit=crop"
+              alt="Women's pants and bottoms"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Bottoms &amp; Pants</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80&fit=crop"
+              alt="Women's outerwear and coats"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Outerwear &amp; Coats</span>
+            </div>
+            <span class="cat-card-badge cat-card-badge--season">Season</span>
+          </div>
+        </div>
+
+        <!-- CHILDREN'S GRID -->
+        <div
+          class="cat-grid"
+          id="grid-children"
+          data-category="children"
+          role="tabpanel"
+          aria-labelledby="tab-children"
+          hidden
+        >
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1522771930-78848d9293e8?w=600&q=80&fit=crop"
+              alt="Baby and infant clothing"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Baby &amp; Infant</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=600&q=80&fit=crop"
+              alt="Girls clothing ages 2 to 12"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Girls 2–12</span>
+            </div>
+            <span class="cat-card-badge cat-card-badge--hot">Popular</span>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?w=600&q=80&fit=crop"
+              alt="Boys clothing ages 2 to 12"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">Boys 2–12</span>
+            </div>
+          </div>
+          <div class="cat-card">
+            <img
+              src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&q=80&fit=crop"
+              alt="School uniforms and children's school wear"
+              loading="lazy"
+            />
+            <div class="cat-card-overlay">
+              <span class="cat-card-label">School &amp; Uniforms</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="why-us" aria-label="Why choose us">
-      <!-- Task 6 -->
+      <div class="section-inner" id="why-us">
+        <p class="section-label">Why Choose Us</p>
+        <h2 class="section-title">Built for Wholesale Buyers</h2>
+        <p class="section-sub">Everything you need to source with confidence</p>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon" aria-hidden="true">🌍</div>
+            <h3 class="why-title">Global Reach</h3>
+            <p class="why-text">We ship to 50+ countries. Whether you're a boutique in Lagos or a retailer in Dubai, we get your order there reliably and on time.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon" aria-hidden="true">📦</div>
+            <h3 class="why-title">Bulk Pricing</h3>
+            <p class="why-text">Competitive wholesale rates across all categories. The more you order, the better the price. Simple, transparent pricing with no hidden fees.</p>
+          </div>
+          <div class="why-card">
+            <div class="why-icon" aria-hidden="true">✅</div>
+            <h3 class="why-title">Quality Assured</h3>
+            <p class="why-text">Every product is quality-checked before it ships. No surprises — what you see in our catalog is exactly what arrives at your door.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section class="contact-band" id="contact" aria-label="Contact us">
