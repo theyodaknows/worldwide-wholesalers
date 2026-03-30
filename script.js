@@ -406,6 +406,103 @@ function initProductDetail() {
   });
 }
 
+// =====================
+// CHECKOUT (checkout.html)
+// =====================
+function initCheckout() {
+  var form = document.getElementById('checkout-form');
+  var summaryEl = document.getElementById('checkout-summary');
+  var errorEl = document.getElementById('checkout-error');
+  if (!form) return;
+
+  // Render order summary
+  function renderSummary() {
+    var items = Cart.getItems();
+    if (!summaryEl) return;
+    if (items.length === 0) {
+      summaryEl.innerHTML =
+        '<div class="checkout-empty">' +
+          '<p>Your cart is empty.</p>' +
+          '<a href="index.html#collections" class="pd-back">← Browse Collections</a>' +
+        '</div>';
+      return;
+    }
+    var html = '<h2 class="checkout-summary-title">Order Summary</h2>';
+    items.forEach(function (item) {
+      var product = PRODUCTS.find(function (p) { return p.id === item.id; });
+      if (!product) return;
+      html +=
+        '<div class="checkout-line">' +
+          '<span class="checkout-line-name">' + product.name + '</span>' +
+          '<span class="checkout-line-detail">× ' + item.qty + ' &nbsp;·&nbsp; ' + product.price + '</span>' +
+        '</div>';
+    });
+    summaryEl.innerHTML = html;
+  }
+
+  renderSummary();
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (errorEl) errorEl.hidden = true;
+
+    var items = Cart.getItems();
+    if (items.length === 0) {
+      if (errorEl) {
+        errorEl.textContent = 'Your cart is empty. Add products before submitting a quote.';
+        errorEl.hidden = false;
+      }
+      return;
+    }
+
+    var bizName = form.bizName.value.trim();
+    var contactName = form.contactName.value.trim();
+    var email = form.email.value.trim();
+    var whatsapp = form.whatsapp.value.trim();
+    var notes = form.notes.value.trim();
+
+    if (!bizName || !contactName || !email || !whatsapp) {
+      if (errorEl) {
+        errorEl.textContent = 'Please fill in all required fields.';
+        errorEl.hidden = false;
+      }
+      return;
+    }
+
+    // Build order lines
+    var orderLines = items.map(function (item) {
+      var product = PRODUCTS.find(function (p) { return p.id === item.id; });
+      return product
+        ? '• ' + product.name + ' × ' + item.qty + ' (' + product.price + ')'
+        : '• Unknown product × ' + item.qty;
+    }).join('\n');
+
+    var message =
+      '*NEW WHOLESALE INQUIRY*\n' +
+      'From: ' + bizName + '\n' +
+      'Contact: ' + contactName + '\n' +
+      'Email: ' + email + '\n' +
+      'WhatsApp: ' + whatsapp + '\n\n' +
+      '*ORDER DETAILS:*\n' +
+      orderLines + '\n\n' +
+      '*Notes:* ' + (notes || 'None');
+
+    var waUrl = 'https://wa.me/15551234567?text=' + encodeURIComponent(message);
+    window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+    Cart.clear();
+    renderSummary();
+
+    // Show confirmation
+    form.innerHTML =
+      '<div class="checkout-confirm">' +
+        '<p class="checkout-confirm-title">Quote request sent!</p>' +
+        '<p class="checkout-confirm-sub">WhatsApp has opened with your order details. We\'ll be in touch within 24 hours.</p>' +
+        '<a href="index.html" class="checkout-submit" style="text-align:center;display:block;text-decoration:none;">Back to Collections</a>' +
+      '</div>';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   initMobileNav();
   initCartBadge();
