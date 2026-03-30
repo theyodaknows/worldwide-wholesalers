@@ -824,3 +824,43 @@ button:focus-visible {
 .skip-link:focus {
   top: 16px;
 }
+
+/* =====================
+   CART ICON (NAV)
+   ===================== */
+.nav-cart {
+  position: relative;
+  padding: 6px;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition);
+  display: flex;
+  align-items: center;
+}
+.nav-cart:hover,
+.nav-cart:focus-visible {
+  color: var(--green);
+}
+.nav-cart-icon {
+  display: block;
+}
+.nav-cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  background: var(--green);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 5px;
+  line-height: 1;
+}
+.nav-cart-badge[hidden] { display: none; }
