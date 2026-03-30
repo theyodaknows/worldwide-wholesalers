@@ -62,6 +62,15 @@ function initMobileNav() {
       toggle.setAttribute('aria-expanded', 'false');
     }
   });
+
+  // Close on Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menu.classList.contains('open')) {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.focus();
+    }
+  });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
