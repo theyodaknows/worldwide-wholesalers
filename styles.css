@@ -129,7 +129,7 @@ button {
 }
 
 .nav-hamburger {
-  display: none;
+  display: none; /* switched to display:flex at mobile breakpoint in Task 9 */
   flex-direction: column;
   gap: 5px;
   padding: 4px;
