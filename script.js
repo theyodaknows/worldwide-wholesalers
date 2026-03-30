@@ -73,7 +73,93 @@ function initMobileNav() {
   });
 }
 
+// =====================
+// CART (localStorage)
+// =====================
+window.Cart = (function () {
+  var STORAGE_KEY = 'ww_cart';
+
+  function getItems() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function getCount() {
+    return getItems().reduce(function (sum, item) { return sum + item.qty; }, 0);
+  }
+
+  function _save(items) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  }
+
+  function _notify() {
+    document.dispatchEvent(new CustomEvent('cart-updated'));
+  }
+
+  function add(productId, qty) {
+    var items = getItems();
+    var existing = items.find(function (i) { return i.id === productId; });
+    if (existing) {
+      existing.qty += qty;
+    } else {
+      items.push({ id: productId, qty: qty });
+    }
+    _save(items);
+    _notify();
+  }
+
+  function update(productId, qty) {
+    var items = getItems();
+    if (qty <= 0) {
+      items = items.filter(function (i) { return i.id !== productId; });
+    } else {
+      var existing = items.find(function (i) { return i.id === productId; });
+      if (existing) { existing.qty = qty; }
+    }
+    _save(items);
+    _notify();
+  }
+
+  function remove(productId) {
+    var items = getItems().filter(function (i) { return i.id !== productId; });
+    _save(items);
+    _notify();
+  }
+
+  function clear() {
+    _save([]);
+    _notify();
+  }
+
+  return { getItems: getItems, getCount: getCount, add: add, update: update, remove: remove, clear: clear };
+}());
+
+// =====================
+// CART BADGE
+// =====================
+function initCartBadge() {
+  var badge = document.getElementById('nav-cart-badge');
+  var btn = document.getElementById('nav-cart-btn');
+  if (!badge) return;
+
+  function update() {
+    var count = Cart.getCount();
+    badge.textContent = count;
+    badge.hidden = count === 0;
+    if (btn) {
+      btn.setAttribute('aria-label', 'Open shopping cart (' + count + ' item' + (count === 1 ? '' : 's') + ')');
+    }
+  }
+
+  update();
+  document.addEventListener('cart-updated', update);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initCategoryTabs();
   initMobileNav();
+  initCartBadge();
 });
