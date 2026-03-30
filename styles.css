@@ -774,3 +774,24 @@ button:focus-visible {
   .cat-tab { padding: 10px 12px; font-size: 9px; }
   .stat-num { font-size: 30px; }
 }
+
+/* =====================
+   ACCESSIBILITY
+   ===================== */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  background: var(--green);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 700;
+  z-index: 9999;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
