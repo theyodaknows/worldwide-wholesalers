@@ -503,3 +503,165 @@ button:focus-visible {
   color: var(--text-dim);
   line-height: 1.75;
 }
+
+/* =====================
+   CONTACT / WHATSAPP BAND
+   ===================== */
+.contact-band {
+  padding: 0 64px 80px;
+}
+
+.contact-band-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #0d1f0d 0%, #0a0a0a 100%);
+  border: 1px solid #1e3a1e;
+  border-radius: var(--radius);
+  padding: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.contact-text {
+  flex: 1;
+}
+
+.contact-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.contact-sub {
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 420px;
+}
+
+.wa-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--wa-green);
+  color: #fff;
+  padding: 18px 40px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background var(--transition), transform var(--transition);
+}
+
+.wa-btn:hover,
+.wa-btn:focus-visible {
+  background: #1da851;
+  transform: translateY(-2px);
+}
+
+.wa-btn-icon {
+  width: 22px;
+  height: 22px;
+  fill: #fff;
+  flex-shrink: 0;
+}
+
+/* =====================
+   FOOTER
+   ===================== */
+.footer {
+  background: #080808;
+  border-top: 1px solid #141414;
+}
+
+.footer-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.footer-logo img {
+  height: 28px;
+  width: auto;
+  opacity: 0.7;
+  transition: opacity var(--transition);
+}
+
+.footer-logo:hover img {
+  opacity: 1;
+}
+
+.footer-copy {
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-links a {
+  font-size: 10px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: color var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--green);
+}
+
+/* =====================
+   FLOATING WHATSAPP
+   ===================== */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 200;
+  width: 58px;
+  height: 58px;
+  background: var(--wa-green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.4);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.wa-float:hover,
+.wa-float:focus-visible {
+  transform: scale(1.1);
+  box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
+}
+
+.wa-float-pulse {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 199;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: rgba(37, 211, 102, 0.35);
+  animation: wa-pulse 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wa-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.5); opacity: 0; }
+}
