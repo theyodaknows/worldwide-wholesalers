@@ -55,38 +55,43 @@
     <div class="checkout-page">
       <div class="checkout-inner">
         <a href="index.html" class="pd-back">← Back to Collections</a>
-        <h1 class="checkout-heading">Request a Quote</h1>
-        <p class="checkout-sub">Review your order below and submit your details. We'll respond via WhatsApp within 24 hours.</p>
+        <div class="checkout-header">
+          <h1 class="checkout-heading">Request a Quote</h1>
+          <p class="checkout-sub">Review your order below and submit your details. We'll respond via WhatsApp within 24 hours.</p>
+        </div>
 
         <div class="checkout-layout">
+          <div class="checkout-form-card">
+            <p class="checkout-form-title">Your Details</p>
+            <form class="checkout-form" id="checkout-form" novalidate>
+              <div class="form-group">
+                <label for="biz-name">Business Name <span aria-hidden="true">*</span></label>
+                <input type="text" id="biz-name" name="bizName" required aria-required="true" autocomplete="organization" />
+              </div>
+              <div class="form-group">
+                <label for="contact-name">Contact Name <span aria-hidden="true">*</span></label>
+                <input type="text" id="contact-name" name="contactName" required aria-required="true" autocomplete="name" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email <span aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" />
+              </div>
+              <div class="form-group">
+                <label for="whatsapp">WhatsApp Number <span aria-hidden="true">*</span></label>
+                <input type="tel" id="whatsapp" name="whatsapp" required aria-required="true" placeholder="+1 555 123 4567" autocomplete="tel" />
+              </div>
+              <div class="form-group">
+                <label for="notes">Notes <span class="form-optional">(optional)</span></label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Colour preferences, size breakdown, delivery country…"></textarea>
+              </div>
+              <div id="checkout-error" class="checkout-error" hidden role="alert"></div>
+              <button type="submit" class="checkout-submit">Send Quote Request via WhatsApp</button>
+            </form>
+          </div>
+
           <div class="checkout-summary" id="checkout-summary">
             <!-- Rendered by JS -->
           </div>
-
-          <form class="checkout-form" id="checkout-form" novalidate>
-            <div class="form-group">
-              <label for="biz-name">Business Name <span aria-hidden="true">*</span></label>
-              <input type="text" id="biz-name" name="bizName" required aria-required="true" autocomplete="organization" />
-            </div>
-            <div class="form-group">
-              <label for="contact-name">Contact Name <span aria-hidden="true">*</span></label>
-              <input type="text" id="contact-name" name="contactName" required aria-required="true" autocomplete="name" />
-            </div>
-            <div class="form-group">
-              <label for="email">Email <span aria-hidden="true">*</span></label>
-              <input type="email" id="email" name="email" required aria-required="true" autocomplete="email" />
-            </div>
-            <div class="form-group">
-              <label for="whatsapp">WhatsApp Number <span aria-hidden="true">*</span></label>
-              <input type="tel" id="whatsapp" name="whatsapp" required aria-required="true" placeholder="+1 555 123 4567" autocomplete="tel" />
-            </div>
-            <div class="form-group">
-              <label for="notes">Notes <span class="form-optional">(optional)</span></label>
-              <textarea id="notes" name="notes" rows="3" placeholder="Colour preferences, size breakdown, delivery country…"></textarea>
-            </div>
-            <div id="checkout-error" class="checkout-error" hidden role="alert"></div>
-            <button type="submit" class="checkout-submit">Send Quote Request via WhatsApp</button>
-          </form>
         </div>
       </div>
     </div>
