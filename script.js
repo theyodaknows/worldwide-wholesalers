@@ -31,7 +31,7 @@ function initMobileNav() {
 
   toggle.addEventListener('click', () => {
     const open = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
   // Close on outside click
