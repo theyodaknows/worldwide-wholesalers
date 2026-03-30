@@ -233,6 +233,26 @@ function initCartSidebar() {
   var cartBtn = document.getElementById('nav-cart-btn');
   var closeBtn = document.getElementById('cart-close');
 
+  // Event delegation for cart item controls (attached once, not per render)
+  var cartBody = document.getElementById('cart-body');
+  cartBody.addEventListener('click', function (e) {
+    var qtyBtn = e.target.closest('.cart-item-qty-btn');
+    var removeBtn = e.target.closest('.cart-item-remove');
+    if (qtyBtn) {
+      var id = qtyBtn.dataset.id;
+      var currentItem = Cart.getItems().find(function (i) { return i.id === id; });
+      if (!currentItem) return;
+      if (qtyBtn.dataset.action === 'minus') {
+        Cart.update(id, currentItem.qty - 1);
+      } else {
+        Cart.update(id, currentItem.qty + 1);
+      }
+    }
+    if (removeBtn) {
+      Cart.remove(removeBtn.dataset.id);
+    }
+  });
+
   function openSidebar() {
     overlay.hidden = false;
     // Force reflow so CSS transition plays
@@ -309,25 +329,6 @@ function renderCartSidebar() {
       '</div>';
   });
   body.innerHTML = html;
-
-  // Event delegation
-  body.addEventListener('click', function (e) {
-    var qtyBtn = e.target.closest('.cart-item-qty-btn');
-    var removeBtn = e.target.closest('.cart-item-remove');
-    if (qtyBtn) {
-      var id = qtyBtn.dataset.id;
-      var currentItem = Cart.getItems().find(function (i) { return i.id === id; });
-      if (!currentItem) return;
-      if (qtyBtn.dataset.action === 'minus') {
-        Cart.update(id, currentItem.qty - 1);
-      } else {
-        Cart.update(id, currentItem.qty + 1);
-      }
-    }
-    if (removeBtn) {
-      Cart.remove(removeBtn.dataset.id);
-    }
-  });
 }
 
 // =====================
