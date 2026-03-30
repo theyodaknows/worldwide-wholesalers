@@ -181,7 +181,7 @@ function initProductRows() {
       card.href = 'product.html?id=' + product.id;
       card.className = 'product-card';
       var badgeHtml = product.badge
-        ? '<span class="cat-card-badge' + (product.badge === 'Hot' ? ' cat-card-badge--hot' : product.badge === 'Popular' ? ' cat-card-badge--hot' : '') + '">' + product.badge + '</span>'
+        ? '<span class="cat-card-badge' + (product.badge === 'Hot' ? ' cat-card-badge--hot' : '') + '">' + product.badge + '</span>'
         : '';
       card.innerHTML =
         '<div class="product-card-img">' +
