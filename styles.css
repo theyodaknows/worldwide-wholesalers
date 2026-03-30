@@ -1040,6 +1040,11 @@ button:focus-visible {
   outline: none;
   border-color: var(--green);
 }
+.form-group input:focus-visible,
+.form-group textarea:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
 .form-group textarea { resize: vertical; }
 .checkout-error {
   background: rgba(229, 62, 62, 0.1);
@@ -1388,6 +1393,10 @@ button:focus-visible {
 .pd-qty-input:focus {
   outline: none;
   border-color: var(--green);
+}
+.pd-qty-input:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
 }
 .pd-add-btn {
   display: block;
