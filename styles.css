@@ -975,6 +975,10 @@ button:focus-visible {
   gap: 40px;
   align-items: start;
 }
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+}
 .checkout-summary {
   background: var(--surface);
   border: 1px solid var(--border);

@@ -488,6 +488,7 @@ function initCheckout() {
       orderLines + '\n\n' +
       '*Notes:* ' + (notes || 'None');
 
+    // TODO: replace 15551234567 with real WhatsApp number in E.164 format (no + or spaces)
     var waUrl = 'https://wa.me/15551234567?text=' + encodeURIComponent(message);
     window.open(waUrl, '_blank', 'noopener,noreferrer');
 
