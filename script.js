@@ -199,9 +199,217 @@ function initProductRows() {
   });
 }
 
+// =====================
+// CART SIDEBAR
+// =====================
+function initCartSidebar() {
+  // Inject sidebar HTML once
+  if (document.getElementById('cart-sidebar')) return;
+
+  var overlay = document.createElement('div');
+  overlay.className = 'cart-overlay';
+  overlay.id = 'cart-overlay';
+  overlay.hidden = true;
+
+  var sidebar = document.createElement('aside');
+  sidebar.className = 'cart-sidebar';
+  sidebar.id = 'cart-sidebar';
+  sidebar.setAttribute('role', 'dialog');
+  sidebar.setAttribute('aria-label', 'Shopping cart');
+  sidebar.setAttribute('aria-hidden', 'true');
+  sidebar.innerHTML =
+    '<div class="cart-header">' +
+      '<h2 class="cart-title">Your Cart</h2>' +
+      '<button class="cart-close" id="cart-close" type="button" aria-label="Close cart">✕</button>' +
+    '</div>' +
+    '<div class="cart-body" id="cart-body"></div>' +
+    '<div class="cart-footer" id="cart-footer">' +
+      '<a href="checkout.html" class="cart-checkout-btn">Request Quote</a>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+  document.body.appendChild(sidebar);
+
+  var cartBtn = document.getElementById('nav-cart-btn');
+  var closeBtn = document.getElementById('cart-close');
+
+  function openSidebar() {
+    overlay.hidden = false;
+    // Force reflow so CSS transition plays
+    overlay.offsetHeight;
+    overlay.classList.add('open');
+    sidebar.classList.add('open');
+    sidebar.setAttribute('aria-hidden', 'false');
+    renderCartSidebar();
+    if (closeBtn) closeBtn.focus();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSidebar() {
+    overlay.classList.remove('open');
+    sidebar.classList.remove('open');
+    sidebar.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    // Hide overlay after transition
+    setTimeout(function () { overlay.hidden = true; }, 300);
+    if (cartBtn) cartBtn.focus();
+  }
+
+  if (cartBtn) cartBtn.addEventListener('click', openSidebar);
+  if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && sidebar.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
+
+  // Re-render sidebar when cart changes (if open)
+  document.addEventListener('cart-updated', function () {
+    if (sidebar.classList.contains('open')) renderCartSidebar();
+  });
+}
+
+function renderCartSidebar() {
+  var body = document.getElementById('cart-body');
+  var footer = document.getElementById('cart-footer');
+  if (!body) return;
+
+  var items = Cart.getItems();
+
+  if (items.length === 0) {
+    body.innerHTML =
+      '<div class="cart-empty">' +
+        '<p>Your cart is empty.</p>' +
+        '<a href="index.html#collections" class="cart-empty-link">Browse Collections →</a>' +
+      '</div>';
+    if (footer) footer.hidden = true;
+    return;
+  }
+
+  if (footer) footer.hidden = false;
+
+  var html = '';
+  items.forEach(function (item) {
+    var product = PRODUCTS.find(function (p) { return p.id === item.id; });
+    if (!product) return;
+    html +=
+      '<div class="cart-item" data-id="' + item.id + '">' +
+        '<img src="' + product.image + '" alt="' + product.name + '" class="cart-item-img" />' +
+        '<div class="cart-item-info">' +
+          '<span class="cart-item-name">' + product.name + '</span>' +
+          '<span class="cart-item-price">' + product.price + '</span>' +
+          '<div class="cart-item-qty">' +
+            '<button class="cart-item-qty-btn" data-action="minus" data-id="' + item.id + '" type="button" aria-label="Decrease quantity of ' + product.name + '">−</button>' +
+            '<span class="cart-item-qty-val">' + item.qty + '</span>' +
+            '<button class="cart-item-qty-btn" data-action="plus" data-id="' + item.id + '" type="button" aria-label="Increase quantity of ' + product.name + '">+</button>' +
+          '</div>' +
+        '</div>' +
+        '<button class="cart-item-remove" data-id="' + item.id + '" type="button" aria-label="Remove ' + product.name + ' from cart">✕</button>' +
+      '</div>';
+  });
+  body.innerHTML = html;
+
+  // Event delegation
+  body.addEventListener('click', function (e) {
+    var qtyBtn = e.target.closest('.cart-item-qty-btn');
+    var removeBtn = e.target.closest('.cart-item-remove');
+    if (qtyBtn) {
+      var id = qtyBtn.dataset.id;
+      var currentItem = Cart.getItems().find(function (i) { return i.id === id; });
+      if (!currentItem) return;
+      if (qtyBtn.dataset.action === 'minus') {
+        Cart.update(id, currentItem.qty - 1);
+      } else {
+        Cart.update(id, currentItem.qty + 1);
+      }
+    }
+    if (removeBtn) {
+      Cart.remove(removeBtn.dataset.id);
+    }
+  });
+}
+
+// =====================
+// PRODUCT DETAIL (product.html)
+// =====================
+function initProductDetail() {
+  var container = document.getElementById('product-detail');
+  if (!container) return;
+
+  var params = new URLSearchParams(window.location.search);
+  var id = params.get('id');
+  var product = PRODUCTS.find(function (p) { return p.id === id; });
+
+  if (!product) {
+    container.innerHTML =
+      '<div class="pd-not-found">' +
+        '<p>Product not found.</p>' +
+        '<a href="index.html#collections" class="pd-back">← Back to Collections</a>' +
+      '</div>';
+    return;
+  }
+
+  // Set page title
+  document.title = product.name + ' | Worldwide Wholesalers';
+
+  var badgeHtml = product.badge
+    ? '<span class="cat-card-badge' + (product.badge === 'Hot' ? ' cat-card-badge--hot' : '') + '">' + product.badge + '</span>'
+    : '';
+
+  container.innerHTML =
+    '<div class="pd-layout">' +
+      '<div class="pd-image">' +
+        '<img src="' + product.image + '" alt="' + product.name + '" />' +
+        badgeHtml +
+      '</div>' +
+      '<div class="pd-info">' +
+        '<a href="index.html#collections" class="pd-back">← Back to Collections</a>' +
+        '<span class="pd-cat">' + product.category.charAt(0).toUpperCase() + product.category.slice(1) + ' · ' + product.subcategory + '</span>' +
+        '<h1 class="pd-name">' + product.name + '</h1>' +
+        '<span class="pd-price">' + product.price + '</span>' +
+        '<p class="pd-desc">' + product.description + '</p>' +
+        '<div class="pd-moq">Minimum Order: <strong>' + product.moq + ' units</strong></div>' +
+        '<div class="pd-qty">' +
+          '<label for="pd-qty-input" class="pd-qty-label">Quantity:</label>' +
+          '<button class="pd-qty-btn" id="pd-qty-minus" type="button" aria-label="Decrease quantity">−</button>' +
+          '<input type="number" id="pd-qty-input" class="pd-qty-input" value="' + product.moq + '" min="1" step="1" aria-label="Order quantity" />' +
+          '<button class="pd-qty-btn" id="pd-qty-plus" type="button" aria-label="Increase quantity">+</button>' +
+        '</div>' +
+        '<button class="pd-add-btn" id="pd-add-btn" type="button">Add to Cart</button>' +
+      '</div>' +
+    '</div>';
+
+  // Quantity controls
+  var qtyInput = document.getElementById('pd-qty-input');
+  document.getElementById('pd-qty-minus').addEventListener('click', function () {
+    var val = parseInt(qtyInput.value, 10) || 1;
+    if (val > 1) qtyInput.value = val - 1;
+  });
+  document.getElementById('pd-qty-plus').addEventListener('click', function () {
+    var val = parseInt(qtyInput.value, 10) || 1;
+    qtyInput.value = val + 1;
+  });
+
+  // Add to cart
+  var addBtn = document.getElementById('pd-add-btn');
+  addBtn.addEventListener('click', function () {
+    var qty = parseInt(qtyInput.value, 10) || product.moq;
+    if (qty < 1) qty = 1;
+    Cart.add(product.id, qty);
+    addBtn.textContent = 'Added!';
+    addBtn.classList.add('pd-add-btn--added');
+    setTimeout(function () {
+      addBtn.textContent = 'Add to Cart';
+      addBtn.classList.remove('pd-add-btn--added');
+    }, 1500);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   initMobileNav();
   initCartBadge();
+  initCartSidebar();
   if (document.querySelector('.cat-tab')) {
     initCategoryTabs();
     initProductRows();
@@ -212,5 +420,4 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.getElementById('checkout-form')) {
     initCheckout();
   }
-  if (typeof initCartSidebar === 'function') initCartSidebar();
 });
