@@ -765,6 +765,16 @@ button:focus-visible {
     gap: 16px;
     padding: 28px 24px;
   }
+
+  .hero-overlay {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.7) 30%, rgba(0, 0, 0, 0.4) 100%);
+  }
+  .nav-logo img {
+    max-width: 140px;
+  }
+  body {
+    padding-bottom: 80px;
+  }
 }
 
 /* Mobile small — 480px */
@@ -773,6 +783,22 @@ button:focus-visible {
   .cat-grid { grid-template-columns: repeat(2, 1fr); }
   .cat-tab { padding: 10px 12px; font-size: 9px; }
   .stat-num { font-size: 30px; }
+
+  .cat-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cat-tabs::-webkit-scrollbar {
+    display: none;
+  }
+  .cat-tab {
+    flex-shrink: 0;
+  }
+  .contact-title {
+    font-size: 22px;
+  }
 }
 
 /* =====================
